@@ -14,7 +14,9 @@ docker-compose up -d
 ```
 
 ## Running tests
+```shell
 ./gradlew clean build
+```
 
 ## Upgrade gradlq wrapper
 * change version in gradle-wrapper.properties: `./gradlew wrapper --gradle-version 9.1.0`
