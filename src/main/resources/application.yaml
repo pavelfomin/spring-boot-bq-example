@@ -1,0 +1,24 @@
+app:
+  query:
+    host: https://www.googleapis.com
+    project: test-project
+
+management:
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info,env,metrics
+      cors:
+        allowed-headers: '*'
+        allowed-methods: '*'
+        allowed-origin-patterns: '*'
+        exposed-headers: '*'
+
+logging:
+  level:
+    root: INFO

@@ -1,0 +1,16 @@
+projects:
+  - id: test-project
+    datasets:
+        - id: dataset
+          tables:
+            - id: table
+              columns:
+                - name: id
+                  type: INTEGER
+                - name: name
+                  type: STRING
+              data:
+                - id: 1
+                  name: alice
+                - id: 2
+                  name: bob

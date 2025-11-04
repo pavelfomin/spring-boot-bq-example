@@ -1,0 +1,12 @@
+.gradle
+build/
+
+### IntelliJ IDEA ###
+.idea
+
+# github workflow
+settings.xml
+toolchains.xml
+
+.DS_Store
+.DS_Store?

@@ -1,0 +1,11 @@
+services:
+
+  bigquery-emulator:
+    container_name: bigquery-emulator
+    image: ghcr.io/goccy/bigquery-emulator:latest
+    platform: linux/amd64
+    ports:
+      - '9050:9050'
+    volumes:
+      - ./src/test/resources/data:/test-data
+    command: [ "--project", "test-project", "--data-from-yaml", "/test-data/bq-simulator-data.yaml" ]
