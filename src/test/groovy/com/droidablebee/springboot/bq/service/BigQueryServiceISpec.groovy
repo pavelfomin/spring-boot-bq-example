@@ -16,15 +16,17 @@ class BigQueryServiceISpec extends BaseIntegrationSpec {
     @Autowired
     BigQuery bigQuery
 
+    @Autowired
+    BigQueryService bigQueryService
+
     @Shared
     String project = "test-project"
 
     @Shared
     String dataset = "dataset"
 
-    void "Execute Job.getQueryResults"() {
+    def "Execute Job.getQueryResults with explicit DestinationTable set"() {
         given:
-
         QueryJobConfiguration queryJobConfiguration = QueryJobConfiguration
             .newBuilder("SELECT * FROM dataset.table")
             .setDestinationTable(destinationTable)
@@ -37,7 +39,7 @@ class BigQueryServiceISpec extends BaseIntegrationSpec {
 
         when:
         TableResult tableResult = job.getQueryResults()
-        List<String> results = tableResult.streamAll().map(d -> d.toString()).toList();
+        List<String> results = tableResult.streamAll().map(d -> d.toString()).toList()
 
         then:
         results.size() == 2
@@ -46,5 +48,13 @@ class BigQueryServiceISpec extends BaseIntegrationSpec {
         destinationTable << [null, TableId.of(project, dataset, "temp_table")]
     }
 
+    def "query as Job returns expected result"() {
+
+        when:
+        List<String> result = bigQueryService.queryAsJob()
+
+        then:
+        result.size() == 2
+    }
 }
 

@@ -1,3 +1,8 @@
+app:
+  query:
+    host: http://localhost:9050
+    project: test-project
+
 logging:
   config: classpath:logback-local.xml
   level:

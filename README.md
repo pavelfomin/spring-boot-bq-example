@@ -13,6 +13,11 @@ docker-compose up -d
 ./gradlew bootRun --args="--spring.profiles.active=local"
 ```
 
+### Using controller
+```shell
+curl localhost:8080/bq/query
+```
+
 ## Running tests
 ```shell
 ./gradlew clean build
