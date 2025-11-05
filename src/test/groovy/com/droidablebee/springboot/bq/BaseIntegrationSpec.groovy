@@ -1,22 +1,25 @@
 package com.droidablebee.springboot.bq
 
 import groovy.util.logging.Slf4j
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import org.testcontainers.containers.BigQueryEmulatorContainer
+import org.testcontainers.utility.DockerImageName
 import org.testcontainers.utility.MountableFile
 import spock.lang.Specification
 
 @Slf4j
 @SpringBootTest
-@AutoConfigureMockMvc
 @ActiveProfiles("test")
 abstract class BaseIntegrationSpec extends Specification {
 
-    protected final static BigQueryEmulatorContainer container = new BigQueryEmulatorContainer("ghcr.io/goccy/bigquery-emulator:0.6.6")
+    final static BigQueryEmulatorContainer container = new BigQueryEmulatorContainer(
+        DockerImageName.parse("ghcr.io/recidiviz/bigquery-emulator:0.4.4-recidiviz.26")
+            .asCompatibleSubstituteFor("ghcr.io/goccy/bigquery-emulator")
+    )
+
     static {
         container
             .withCopyFileToContainer(
