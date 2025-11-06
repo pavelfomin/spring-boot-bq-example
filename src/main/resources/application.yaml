@@ -1,5 +1,6 @@
 app:
   query:
+    use-default-credentials: true
     host: https://www.googleapis.com
     project: test-project
 
