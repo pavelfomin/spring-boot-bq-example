@@ -1,7 +1,7 @@
 app:
   query:
+    use-default-credentials: false
     host: http://localhost:9050
-    project: test-project
 
 logging:
   config: classpath:logback-local.xml

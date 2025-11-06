@@ -1,3 +1,7 @@
+app:
+  query:
+    use-default-credentials: false
+
 management:
   endpoint:
     env:
