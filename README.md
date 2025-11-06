@@ -5,7 +5,7 @@ The [bigquery-emulator](https://github.com/goccy/bigquery-emulator) uses a local
 It is not a full-featured emulator, but it does support basic queries and table operations.
 
 The test file `./src/test/resources/data/bq-simulator-data.yaml` is used to initialize the emulator with
-the necessary tables and data for local development.
+the necessary tables and data for local development and integration testing.
 
 ## Running the application locally
 ```shell
@@ -23,6 +23,6 @@ curl localhost:8080/bq/query
 ./gradlew clean build
 ```
 
-## Upgrade gradlq wrapper
+## Upgrade gradle wrapper
 * change version in gradle-wrapper.properties: `./gradlew wrapper --gradle-version 9.1.0`
 * update gradlew: `./gradlew wrapper`

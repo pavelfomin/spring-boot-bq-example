@@ -6,6 +6,7 @@ import com.google.cloud.bigquery.BigQuery;
 import com.google.cloud.bigquery.BigQueryOptions;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,6 +21,7 @@ public class BigQueryConfiguration {
 
     @Bean
     @SneakyThrows
+    @ConditionalOnProperty(name = "app.query.use-default-credentials", havingValue = "true")
     Credentials credentials() {
         return GoogleCredentials.getApplicationDefault();
     }
