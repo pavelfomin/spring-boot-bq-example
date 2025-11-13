@@ -2,7 +2,7 @@ services:
 
   bigquery-emulator:
     container_name: bigquery-emulator
-    image: ghcr.io/recidiviz/bigquery-emulator:0.4.4-recidiviz.26
+    image: ghcr.io/recidiviz/bigquery-emulator:0.6.6-recidiviz.1
     platform: linux/amd64
     ports:
       - '9050:9050'
