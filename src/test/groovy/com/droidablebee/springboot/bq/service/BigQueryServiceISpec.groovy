@@ -1,6 +1,7 @@
 package com.droidablebee.springboot.bq.service
 
 import com.droidablebee.springboot.bq.BaseIntegrationSpec
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.cloud.bigquery.BigQuery
 import com.google.cloud.bigquery.Job
 import com.google.cloud.bigquery.JobId
@@ -19,13 +20,16 @@ class BigQueryServiceISpec extends BaseIntegrationSpec {
     @Autowired
     BigQueryService bigQueryService
 
+    @Autowired
+    ObjectMapper objectMapper
+
     @Shared
     String project = "test-project"
 
     @Shared
     String dataset = "dataset"
 
-    def "Execute Job.getQueryResults with explicit DestinationTable set"() {
+    def "use Job.getQueryResults with explicit DestinationTable set"() {
         given:
         QueryJobConfiguration queryJobConfiguration = QueryJobConfiguration
             .newBuilder("SELECT * FROM dataset.table")
@@ -46,6 +50,27 @@ class BigQueryServiceISpec extends BaseIntegrationSpec {
 
         where:
         destinationTable << [null, TableId.of(project, dataset, "temp_table")]
+    }
+
+    def "use Job.getQueryResults with TO_JSON_STRING"() {
+        given:
+        QueryJobConfiguration queryJobConfiguration = QueryJobConfiguration
+            .newBuilder("SELECT TO_JSON_STRING(t,true) from (SELECT * FROM dataset.table) as t")
+            .build()
+
+        JobId jobId = JobId.newBuilder().setProject(project).setRandomJob().build()
+        Job job = bigQuery.create(JobInfo.newBuilder(queryJobConfiguration)
+            .setJobId(jobId)
+            .build())
+
+        when:
+        TableResult tableResult = job.getQueryResults()
+        List<Map> results = tableResult.streamAll().map(f ->
+            objectMapper.readValue(f[0].value.toString(), Map)
+        ).toList()
+
+        then:
+        results.size() == 2
     }
 
     def "query as Job returns expected result"() {

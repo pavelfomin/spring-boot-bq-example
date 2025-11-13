@@ -16,7 +16,7 @@ import spock.lang.Specification
 abstract class BaseIntegrationSpec extends Specification {
 
     final static BigQueryEmulatorContainer container = new BigQueryEmulatorContainer(
-        DockerImageName.parse("ghcr.io/recidiviz/bigquery-emulator:0.4.4-recidiviz.26")
+        DockerImageName.parse("ghcr.io/recidiviz/bigquery-emulator:0.6.6-recidiviz.1")
             .asCompatibleSubstituteFor("ghcr.io/goccy/bigquery-emulator")
     )
 
